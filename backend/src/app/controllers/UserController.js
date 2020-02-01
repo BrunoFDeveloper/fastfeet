@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import User from '../models/User';
 
 class UserController {
-  async index(req, res) {
+  async index(_, res) {
     const users = await User.findAll();
 
     const formattedUsers = users.map(({ id, name, email }) => ({
@@ -37,6 +37,7 @@ class UserController {
 
     return res.json({ name, email });
   }
+
   async update() {}
 }
 

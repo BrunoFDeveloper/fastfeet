@@ -4,7 +4,7 @@ import authConfig from '../../config/authConfig';
 import User from '../models/User';
 
 class SessionControler {
-  async store(req, res) {
+  async store({ body }, res) {
     const schema = Yup.object().shape({
       email: Yup.string()
         .email()
@@ -14,10 +14,10 @@ class SessionControler {
         .required(),
     });
 
-    if (!(await schema.isValid(req.body)))
+    if (!(await schema.isValid(body)))
       return res.status(400).json({ error: 'Validation is not valid' });
 
-    const { email, password } = req.body;
+    const { email, password } = body;
 
     const user = await User.findOne({ where: { email } });
 
@@ -28,7 +28,7 @@ class SessionControler {
 
     const { id, name } = user;
 
-    res.json({
+    return res.json({
       user: {
         id,
         name,

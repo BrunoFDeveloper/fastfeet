@@ -20,7 +20,7 @@ class RecipientController {
     return res.json(formatedRecipients);
   }
 
-  async store(req, res) {
+  async store({ body }, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       street: Yup.string().required(),
@@ -31,21 +31,20 @@ class RecipientController {
       cep: Yup.string().required(),
     });
 
-    if (!(await schema.isValid(req.body)))
+    if (!(await schema.isValid(body)))
       return res.status(400).json({ error: 'Validation is not valid' });
 
-    const recipient = await Recipient.create(req.body);
-    res.json(recipient);
+    const recipient = await Recipient.create(body);
+    return res.json(recipient);
   }
 
-  async update(req, res) {
-    const { id } = req.params;
-    const recipient = await Recipient.findByPk(id);
+  async update({ body, params }, res) {
+    const recipient = await Recipient.findByPk(params.id);
 
     if (!recipient)
       return res.status(401).json({ error: 'Recipient not found ' });
 
-    const updated = await recipient.update(req.body);
+    const updated = await recipient.update(body);
 
     return res.json(updated);
   }
