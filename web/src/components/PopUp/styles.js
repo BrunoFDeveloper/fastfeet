@@ -21,10 +21,10 @@ export const PopContent = styled.div`
   flex-direction: column;
   position: absolute;
   padding: 10px;
-  width: 140px;
+  width: 180px;
   background: #fff;
   top: 30px;
-  left: calc(50% - 70px);
+  left: calc(50% - 90px);
   filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.2));
   border-radius: 4px;
   z-index: 99;

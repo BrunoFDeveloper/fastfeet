@@ -10,9 +10,11 @@ import Badge from '~/components/Badge/Badge';
 import PopUp from '~/components/PopUp/PopUp';
 import Input from '~/components/Input/Input';
 import Button from '~/components/Button/Button';
+import Modal from '~/components/Modal/Modal';
 
 export default function Dashboard() {
   const [orders, setOrders] = useState([]);
+  const [modal, setModal] = useState({ show: false, data: {} });
 
   async function handleDelete(id) {
     const answer = window.confirm('Deseja deletar essa encomenda?');
@@ -25,6 +27,10 @@ export default function Dashboard() {
 
       toast.success('Encomenda deletada com sucesso!');
     }
+  }
+
+  function handleModal(item) {
+    setModal({ show: !modal.show, data: item });
   }
 
   useEffect(() => {
@@ -83,15 +89,17 @@ export default function Dashboard() {
               </td>
               <td>
                 <PopUp>
-                  <button>
-                    <FaEye size={10} color="#7159c1" />
-                    Visualizar
-                  </button>
-                  <button>
+                  {order.end_date && (
+                    <button type="button" onClick={() => handleModal(order)}>
+                      <FaEye size={10} color="#7159c1" />
+                      Visualizar
+                    </button>
+                  )}
+                  <button type="button">
                     <FaPen size={10} color="#BAD2FF" />
                     Editar
                   </button>
-                  <button onClick={() => handleDelete(order.id)}>
+                  <button type="button" onClick={() => handleDelete(order.id)}>
                     <FaTrash size={10} color="red" />
                     Excluir
                   </button>
@@ -102,6 +110,36 @@ export default function Dashboard() {
           </Fragment>
         ))}
       </Table>
+
+      {modal.show && (
+        <Modal closeModal={() => handleModal(null)}>
+          <h3>Informações da encomenda</h3>
+          <br />
+          <p>
+            {modal.data.recipient.street}, {modal.data.recipient.number}
+          </p>
+          <p>
+            {modal.data.recipient.city} - {modal.data.recipient.state}
+          </p>
+          <p>{modal.data.recipient.cep}</p>
+          <br />
+          <hr />
+          <br />
+          <h3>Datas</h3>
+          <br />
+          <p>
+            <strong>Retirada:</strong> {modal.data.start_date}
+          </p>
+          <p>
+            <strong>Entrega:</strong> {modal.data.end_date}
+          </p>
+          <br />
+          <hr />
+          <br />
+          <h3>Assinatura do destinatário</h3>
+          <img src={modal.data?.signature?.url} alt="assinatura" />
+        </Modal>
+      )}
     </Container>
   );
 }

@@ -51,6 +51,6 @@ routes.delete(
   DeliveryProblemController.delete
 );
 // File upload
-routes.put('/files', upload.single('file'), FileController.store);
+routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;

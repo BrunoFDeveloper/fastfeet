@@ -4,7 +4,7 @@ import Deliveryman from '../models/Deliveryman';
 import File from '../models/File';
 
 class DeliverymanController {
-  async index({ query: { q } }, res) {
+  async index({ query: { q, id } }, res) {
     const deliverys = await Deliveryman.findAll({
       ...(q
         ? {
@@ -12,6 +12,13 @@ class DeliverymanController {
               name: {
                 [Op.iLike]: `%${q}%`,
               },
+            },
+          }
+        : {}),
+      ...(id
+        ? {
+            where: {
+              id,
             },
           }
         : {}),

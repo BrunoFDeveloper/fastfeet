@@ -11,59 +11,58 @@ import PopUp from '~/components/PopUp/PopUp';
 import Input from '~/components/Input/Input';
 import Button from '~/components/Button/Button';
 
-export default function Deliveryman({ history }) {
-  const [deliveryman, setDeliveryman] = useState([]);
+export default function Recipients() {
+  const [recipients, setRecipients] = useState([]);
+
   function handleDelete(id) {}
+
   useEffect(() => {
-    async function getDevileryman() {
+    async function getRecipients() {
       try {
-        const response = await api.get('couriers');
-        setDeliveryman(response.data);
+        const response = await api.get('recipients');
+        setRecipients(response.data);
       } catch (error) {
-        toast.error('Erro ao listar os entregadors!');
+        toast.error('Erro ao listar os destinatários!');
       }
     }
 
-    getDevileryman();
+    getRecipients();
   }, []);
 
   return (
     <Container>
-      <h2>Gerenciando encomendas</h2>
+      <h2>Gerenciando destinatários</h2>
 
       <TopContent>
         <Input
           bg="#fff"
           height={30}
           type="text"
-          placeholder="Buscar por entregadores"
+          placeholder="Buscar por destinatários"
         />
-        <Button onClick={() => history.push('/deliveryman/new')}>
+        <Button>
           <FaPlus size={20} color="#FFF" />
           Cadastrar
         </Button>
       </TopContent>
 
-      <Table titles={['ID', 'Foto', 'Nome', 'Email', 'Ações']}>
-        {deliveryman.map(man => (
-          <Fragment key={man.id}>
+      <Table titles={['ID', 'Nome', 'Endereço', 'Ações']}>
+        {recipients.map(recipient => (
+          <Fragment key={recipient.id}>
             <tr>
-              <td>#{man.id}</td>
+              <td>#{recipient.id}</td>
+              <td>{recipient.name}</td>
               <td>
-                <img src={man.avatar.url} alt={man.name} />
+                {recipient.street}, {recipient.number}, {recipient.city} -{' '}
+                {recipient.state}
               </td>
-              <td>{man.name}</td>
-              <td>{man.email}</td>
               <td>
                 <PopUp>
-                  <button
-                    type="button"
-                    onClick={() => history.push(`/deliveryman/new/${man.id}`)}
-                  >
+                  <button>
                     <FaPen size={10} color="#BAD2FF" />
                     Editar
                   </button>
-                  <button type="button" onClick={() => handleDelete(man.id)}>
+                  <button onClick={() => handleDelete(recipient.id)}>
                     <FaTrash size={10} color="red" />
                     Excluir
                   </button>

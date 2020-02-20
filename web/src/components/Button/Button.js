@@ -2,6 +2,10 @@ import React from 'react';
 
 import { Container } from './styles';
 
-export default function Button({ children, bg }) {
-  return <Container bg={bg}>{children}</Container>;
+export default function Button({ children, bg, ...props }) {
+  return (
+    <Container bg={bg} {...props}>
+      {children}
+    </Container>
+  );
 }
