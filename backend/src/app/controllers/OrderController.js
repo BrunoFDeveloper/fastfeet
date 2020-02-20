@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import Order from '../models/Order';
 import Queue from '../../lib/Queue';
 import NewOrderMail from '../jobs/NewOrderMail';
@@ -7,8 +8,17 @@ import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
 
 class OrderController {
-  async index(_, res) {
+  async index({ query: { q } }, res) {
     const orders = await Order.findAll({
+      ...(q
+        ? {
+            where: {
+              product: {
+                [Op.iLike]: `%${q}%`,
+              },
+            },
+          }
+        : {}),
       include: [
         {
           model: Recipient,

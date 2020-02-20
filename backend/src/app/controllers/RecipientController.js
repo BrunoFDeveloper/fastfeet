@@ -1,23 +1,22 @@
+import { Op } from 'sequelize';
 import * as Yup from 'yup';
 import Recipient from '../models/Recipient';
 
 class RecipientController {
-  async index(_, res) {
-    const recipients = await Recipient.findAll();
-    const formatedRecipients = recipients.map(
-      ({ id, name, street, number, complement, state, city, cep }) => ({
-        id,
-        name,
-        street,
-        number,
-        complement,
-        state,
-        city,
-        cep,
-      })
-    );
+  async index({ query: { q } }, res) {
+    const recipients = await Recipient.findAll({
+      ...(q
+        ? {
+            where: {
+              name: {
+                [Op.iLike]: `%${q}%`,
+              },
+            },
+          }
+        : {}),
+    });
 
-    return res.json(formatedRecipients);
+    return res.json(recipients);
   }
 
   async store({ body }, res) {
