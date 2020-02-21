@@ -10,7 +10,6 @@ module.exports = {
       recipient_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
         references: { model: 'recipients', key: 'id' },
       },
       deliveryman_id: {

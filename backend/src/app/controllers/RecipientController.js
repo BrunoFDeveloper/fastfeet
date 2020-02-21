@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import Recipient from '../models/Recipient';
 
 class RecipientController {
-  async index({ query: { q } }, res) {
+  async index({ query: { q, id } }, res) {
     const recipients = await Recipient.findAll({
       ...(q
         ? {
@@ -11,6 +11,13 @@ class RecipientController {
               name: {
                 [Op.iLike]: `%${q}%`,
               },
+            },
+          }
+        : {}),
+      ...(id
+        ? {
+            where: {
+              id,
             },
           }
         : {}),

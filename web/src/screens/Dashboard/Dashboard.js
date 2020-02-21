@@ -1,4 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
+
 import { toast } from 'react-toastify';
 import { FaEye, FaPen, FaTrash, FaPlus } from 'react-icons/fa';
 
@@ -12,7 +14,7 @@ import Input from '~/components/Input/Input';
 import Button from '~/components/Button/Button';
 import Modal from '~/components/Modal/Modal';
 
-export default function Dashboard() {
+export default function Dashboard({ history }) {
   const [orders, setOrders] = useState([]);
   const [modal, setModal] = useState({ show: false, data: {} });
 
@@ -54,7 +56,7 @@ export default function Dashboard() {
           type="text"
           placeholder="Buscar por encomendas"
         />
-        <Button>
+        <Button onClick={() => history.push('/dashboard/new')}>
           <FaPlus size={20} color="#FFF" />
           Cadastrar
         </Button>
@@ -95,7 +97,14 @@ export default function Dashboard() {
                       Visualizar
                     </button>
                   )}
-                  <button type="button">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      history.push(
+                        `/dashboard/new/${order.id}/${order.recipient_id}/${order.deliveryman_id}`
+                      )
+                    }
+                  >
                     <FaPen size={10} color="#BAD2FF" />
                     Editar
                   </button>
@@ -143,3 +152,9 @@ export default function Dashboard() {
     </Container>
   );
 }
+
+Dashboard.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};

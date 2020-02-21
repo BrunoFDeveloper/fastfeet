@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { FaPen, FaTrash, FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
@@ -11,7 +12,7 @@ import PopUp from '~/components/PopUp/PopUp';
 import Input from '~/components/Input/Input';
 import Button from '~/components/Button/Button';
 
-export default function Recipients() {
+export default function Recipients({ history }) {
   const [recipients, setRecipients] = useState([]);
 
   function handleDelete(id) {}
@@ -40,7 +41,7 @@ export default function Recipients() {
           type="text"
           placeholder="Buscar por destinatários"
         />
-        <Button>
+        <Button onClick={() => history.push('/recipients/new/')}>
           <FaPlus size={20} color="#FFF" />
           Cadastrar
         </Button>
@@ -58,11 +59,19 @@ export default function Recipients() {
               </td>
               <td>
                 <PopUp>
-                  <button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      history.push(`/recipients/new/${recipient.id}`)
+                    }
+                  >
                     <FaPen size={10} color="#BAD2FF" />
                     Editar
                   </button>
-                  <button onClick={() => handleDelete(recipient.id)}>
+                  <button
+                    type="button"
+                    onClick={() => handleDelete(recipient.id)}
+                  >
                     <FaTrash size={10} color="red" />
                     Excluir
                   </button>
@@ -76,3 +85,9 @@ export default function Recipients() {
     </Container>
   );
 }
+
+Recipients.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};

@@ -8,7 +8,7 @@ import Deliveryman from '../models/Deliveryman';
 import Recipient from '../models/Recipient';
 
 class OrderController {
-  async index({ query: { q } }, res) {
+  async index({ query: { q, id } }, res) {
     const orders = await Order.findAll({
       ...(q
         ? {
@@ -16,6 +16,13 @@ class OrderController {
               product: {
                 [Op.iLike]: `%${q}%`,
               },
+            },
+          }
+        : {}),
+      ...(id
+        ? {
+            where: {
+              id,
             },
           }
         : {}),

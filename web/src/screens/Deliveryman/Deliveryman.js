@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { FaPen, FaTrash, FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
@@ -13,7 +14,19 @@ import Button from '~/components/Button/Button';
 
 export default function Deliveryman({ history }) {
   const [deliveryman, setDeliveryman] = useState([]);
-  function handleDelete(id) {}
+
+  async function handleDelete(id) {
+    try {
+      await api.delete(`/couriers/${id}`);
+      toast.success('Entregador removido com sucesso!');
+
+      const data = deliveryman.filter(man => man.id !== id);
+      setDeliveryman(data);
+    } catch (error) {
+      toast.error('Erro ao tentar remover entregador!');
+    }
+  }
+
   useEffect(() => {
     async function getDevileryman() {
       try {
@@ -29,7 +42,7 @@ export default function Deliveryman({ history }) {
 
   return (
     <Container>
-      <h2>Gerenciando encomendas</h2>
+      <h2>Gerenciando entregadores</h2>
 
       <TopContent>
         <Input
@@ -77,3 +90,9 @@ export default function Deliveryman({ history }) {
     </Container>
   );
 }
+
+Deliveryman.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};

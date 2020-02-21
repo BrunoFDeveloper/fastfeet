@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import logo from '~/assets/img/logo.png';
 import { Container, Content, Menu, MenuItem } from './styles';
 
-export default function Header() {
+function Header() {
   return (
     <Container>
       <Content>
@@ -26,3 +26,5 @@ export default function Header() {
     </Container>
   );
 }
+
+export default memo(Header);

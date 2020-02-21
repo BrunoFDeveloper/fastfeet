@@ -65,7 +65,11 @@ export default function NewEditDeliveryman({ match, history }) {
   return (
     <Container>
       <TopContent>
-        <h2>Cadastro de entregadores</h2>
+        <h2>
+          {uiState.isEditMode
+            ? 'Edição de entregador'
+            : 'Cadastro de entregadores'}
+        </h2>
         <div>
           <Button bg="#CCC" onClick={() => history.push('/deliveryman')}>
             <FaChevronLeft color="#FFF" />
