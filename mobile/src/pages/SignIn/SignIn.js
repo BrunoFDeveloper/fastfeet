@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { StatusBar } from 'react-native';
 import { signInRequest } from '~/store/modules/auth/action';
 
 import { Container, Logo } from './styles';
@@ -14,6 +15,7 @@ export default function SignIn() {
 
   return (
     <BgGradient colors={['#7D41E7', '#7D41E7']}>
+      <StatusBar barStyle="light-content" />
       <Container>
         <Logo source={logo} />
         <Input

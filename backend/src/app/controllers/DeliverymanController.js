@@ -25,7 +25,7 @@ class DeliverymanController {
       include: [
         { model: File, as: 'avatar', attributes: ['url', 'id', 'path'] },
       ],
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'created_at'],
     });
     return res.json(deliverys);
   }

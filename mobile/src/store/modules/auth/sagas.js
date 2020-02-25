@@ -7,6 +7,10 @@ import { SIGN_IN_REQUEST } from './actionTypes';
 import { signInSuccess } from './action';
 
 export function* signIn({ payload: { userId } }) {
+  if (!userId) {
+    Alert.alert('Informe um ID de cadastro!');
+    return;
+  }
   try {
     const response = yield call(api.get, 'couriers', {
       params: { id: userId },

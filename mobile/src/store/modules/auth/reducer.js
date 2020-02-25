@@ -1,4 +1,9 @@
-import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAIL } from './actionTypes';
+import {
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAIL,
+  SIGN_OUT,
+} from './actionTypes';
 
 const INITIAL_STATE = {
   signed: false,
@@ -26,6 +31,12 @@ export default function authReducer(state = INITIAL_STATE, { type, payload }) {
       return {
         ...state,
         loading: false,
+      };
+
+    case SIGN_OUT:
+      return {
+        ...state,
+        ...INITIAL_STATE,
       };
 
     default:
