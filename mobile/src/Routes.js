@@ -7,6 +7,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignIn from '~/pages/SignIn/SignIn';
 import Dashboard from '~/pages/Dashboard/Dashboard';
+import OrderDetails from '~/pages/OrderDetails/OrderDetails';
+import Problem from '~/pages/OrderDetails/Problem/Problem';
+import Problems from '~/pages/OrderDetails/Problems/Problems';
+import Confirm from '~/pages/OrderDetails/Confirm/Confirm';
 import Profile from '~/pages/Profile/Profile';
 
 const Stack = createStackNavigator();
@@ -17,7 +21,21 @@ const iconNames = {
   Profile: 'person-pin',
 };
 
-const Stacks = () => (
+const DashboardStack = () => (
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
+    <Stack.Screen name="Dashboard" component={Dashboard} />
+    <Stack.Screen name="Details" component={OrderDetails} />
+    <Stack.Screen name="Problem" component={Problem} />
+    <Stack.Screen name="Problems" component={Problems} />
+    <Stack.Screen name="Confirm" component={Confirm} />
+  </Stack.Navigator>
+);
+
+const AuthStack = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
@@ -42,7 +60,7 @@ const Tabs = () => (
   >
     <Tab.Screen
       name="Dashboard"
-      component={Dashboard}
+      component={DashboardStack}
       options={{
         title: 'Entregas',
       }}
@@ -60,6 +78,8 @@ const Tabs = () => (
 export default function Routes() {
   const signed = useSelector(state => state.auth.signed);
   return (
-    <NavigationContainer>{signed ? <Tabs /> : <Stacks />}</NavigationContainer>
+    <NavigationContainer>
+      {signed ? <Tabs /> : <AuthStack />}
+    </NavigationContainer>
   );
 }

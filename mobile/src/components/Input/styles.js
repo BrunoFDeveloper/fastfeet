@@ -14,6 +14,7 @@ export const TInput = styled.TextInput.attrs({
   color: #323232;
   background: #fff;
   border-radius: 4px;
-  height: 45px;
+  height: ${({ inputHeight }) => (inputHeight ? `${inputHeight}px` : '45px')};
   margin-bottom: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 `;

@@ -14,7 +14,7 @@ class DeliveryController {
         canceled_at: null,
         end_date: null,
       },
-      attributes: ['id', 'product'],
+      attributes: ['id', 'product', 'created_at', 'start_date', 'end_date'],
       include: [
         {
           model: Recipient,

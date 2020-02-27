@@ -57,3 +57,7 @@ export const TextButton = styled.Text`
   font-weight: bold;
   color: ${({ active }) => (active ? '#7D41E7' : '#999')};
 `;
+
+export const ScheduleList = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+})``;

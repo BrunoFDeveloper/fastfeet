@@ -25,6 +25,10 @@ routes.get('/deliveryman/:id/deliveries', DeliveredController.index);
 routes.put('/deliveryman/:deliveryId/:orderId', DeliveryController.update);
 // Delivery problems
 routes.post('/delivery/problems', DeliveryProblemController.store);
+routes.get('/delivery/problems', DeliveryProblemController.index);
+
+// File upload
+routes.post('/files', upload.single('file'), FileController.store);
 // Apply token middleware
 routes.use(authMiddleware);
 
@@ -45,12 +49,9 @@ routes.post('/orders', OrderController.store);
 routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
 // Problems
-routes.get('/delivery/problems', DeliveryProblemController.index);
 routes.delete(
   '/problem/:problemId/cancel-delivery',
   DeliveryProblemController.delete
 );
-// File upload
-routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;

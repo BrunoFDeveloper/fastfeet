@@ -1,5 +1,6 @@
-import React from 'react';
-
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { format, parseISO } from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {
   Container,
@@ -14,7 +15,12 @@ import {
   Text,
 } from './styles';
 
-export default function Schedule() {
+export default function Schedule({ data, onMoreDetails }) {
+  const formattedDate = useMemo(
+    () =>
+      data.created_at && format(parseISO(data.created_at), "dd'/'MM'/'yyyy"),
+    [data.created_at]
+  );
   return (
     <Container>
       <Content>
@@ -30,11 +36,11 @@ export default function Schedule() {
             <SmallTitle ball>Aguardando{'\n'}Retirada</SmallTitle>
           </SubContent>
           <SubContent>
-            <Ball align="center" />
+            <Ball align="center" active={data.start_date} />
             <SmallTitle ball>Retirada</SmallTitle>
           </SubContent>
           <SubContent>
-            <Ball align="flex-end" />
+            <Ball align="flex-end" active={data.end_date} />
             <SmallTitle ball>Entregue</SmallTitle>
           </SubContent>
         </Content>
@@ -44,19 +50,31 @@ export default function Schedule() {
         <SubContent>
           <SmallTitle>Data</SmallTitle>
           <SmallTitle color="#323232" size={14} bold>
-            15/01/2020
+            {formattedDate}
           </SmallTitle>
         </SubContent>
         <SubContent>
           <SmallTitle>Cidade</SmallTitle>
           <SmallTitle color="#323232" size={14} bold>
-            Rio do Sul
+            {data.recipient.city}
           </SmallTitle>
         </SubContent>
-        <MoreButton>
+        <MoreButton onPress={onMoreDetails}>
           <Text>Ver detalhes</Text>
         </MoreButton>
       </Content>
     </Container>
   );
 }
+
+Schedule.propTypes = {
+  data: PropTypes.shape({
+    created_at: PropTypes.string,
+    start_date: PropTypes.string,
+    end_date: PropTypes.string,
+    recipient: PropTypes.shape({
+      city: PropTypes.string,
+    }),
+  }).isRequired,
+  onMoreDetails: PropTypes.func.isRequired,
+};

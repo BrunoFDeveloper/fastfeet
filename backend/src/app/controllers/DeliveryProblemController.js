@@ -7,13 +7,20 @@ import Queue from '../../lib/Queue';
 import CancellationOrderMail from '../jobs/CancellationOrderMail';
 
 class DeliveryProblemController {
-  async index(_, res) {
+  async index({ query: { orderId } }, res) {
     const problems = await DeliveryProblem.findAll({
       include: [
         {
           model: Order,
           as: 'order',
           attributes: ['id', 'product'],
+          ...(orderId
+            ? {
+                where: {
+                  id: orderId,
+                },
+              }
+            : {}),
           include: [
             {
               model: Deliveryman,
@@ -30,7 +37,7 @@ class DeliveryProblemController {
           ],
         },
       ],
-      attributes: ['id', 'description'],
+      attributes: ['id', 'description', 'created_at'],
     });
     return res.json(problems);
   }

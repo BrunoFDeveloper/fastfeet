@@ -20,7 +20,14 @@ class DeliveredController {
           [Op.ne]: null,
         },
       },
-      attributes: ['id', 'product'],
+      attributes: [
+        'id',
+        'product',
+        'canceled_at',
+        'end_date',
+        'start_date',
+        'created_at',
+      ],
       include: [
         {
           model: Recipient,

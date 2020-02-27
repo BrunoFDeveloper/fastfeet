@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { signOut } from '~/store/modules/auth/action';
+import api from '~/services/api';
 
 import {
   Container,
@@ -15,13 +16,29 @@ import {
   Segment,
   SegmentButton,
   TextButton,
+  ScheduleList,
 } from './styles';
 import Schedule from '~/components/Schedule/Schedule';
 
-export default function Dashboard() {
+export default function Dashboard({ navigation }) {
   const [activeSegment, setActivedSegment] = useState('pedding');
+  const [orders, setOrders] = useState([]);
+  const [delivered, setDelivered] = useState([]);
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
+
+  useEffect(() => {
+    async function getOrders() {
+      const response = await api.get(`/deliveryman/${profile.id}`);
+      setOrders(response.data);
+    }
+    async function getDelivered() {
+      const response = await api.get(`/deliveryman/${profile.id}/deliveries`);
+      setDelivered(response.data);
+    }
+    getOrders();
+    getDelivered();
+  }, [profile.id, activeSegment]);
 
   function LogOut() {
     Alert.alert(
@@ -67,9 +84,33 @@ export default function Dashboard() {
         </Segment>
       </TitleContent>
 
-      <Schedule />
-      <Schedule />
-      <Schedule />
+      {activeSegment === 'pedding' ? (
+        <ScheduleList
+          data={orders}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <Schedule
+              data={item}
+              onMoreDetails={() =>
+                navigation.navigate('Details', { order: item })
+              }
+            />
+          )}
+        />
+      ) : (
+        <ScheduleList
+          data={delivered}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <Schedule
+              data={item}
+              onMoreDetails={() =>
+                navigation.navigate('Details', { order: item })
+              }
+            />
+          )}
+        />
+      )}
     </Container>
   );
 }
