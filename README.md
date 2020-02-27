@@ -18,7 +18,7 @@ Back-end, Web and Mobile
 
 ## Features
 
-This repositorie features the latest tools and practices in web development!
+This repositorie has the latest tools and practices in web development!
 
 ## Back-end
 
