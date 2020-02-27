@@ -1,4 +1,8 @@
-# Mobile application
+
+<h3 align="center">
+  Mobile application
+</h3>
+
 Builded with, React Native
 
 ![IMG_0009](https://user-images.githubusercontent.com/4235143/75407943-0c025c80-58f3-11ea-9d12-a51dd80c6c82.PNG)
