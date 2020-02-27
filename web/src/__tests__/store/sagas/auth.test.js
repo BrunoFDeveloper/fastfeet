@@ -17,4 +17,14 @@ describe('Auth saga', () => {
 
     expect(dispatch).toHaveBeenCalledWith(actions.signInSuccess('token', {}));
   });
+
+  test(`Check user failure login ${actionTypes.SIGN_IN_FAIL}`, async () => {
+    const dispatch = jest.fn();
+
+    apiMock.onPost('session').reply(500);
+
+    await runSaga({ dispatch }, signIn, { payload: {} }).toPromise();
+
+    expect(dispatch).toHaveBeenCalledWith(actions.signFailure());
+  });
 });
