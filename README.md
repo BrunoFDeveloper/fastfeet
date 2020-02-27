@@ -42,6 +42,7 @@ This repositorie has the latest tools and practices in web development!
 - 🔥 **Axios** — API requests
 - 💅 **CSS** — styled-components
 - 💖 **Lint** — ESlint/Prettier/Editor Config
+- 🐙 **@testing-library/react** — React Testing Library
 
 ## Other libraries
 

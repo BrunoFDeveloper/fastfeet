@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
@@ -17,6 +17,8 @@ const signInSchema = Yup.object().shape({
 });
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
 
@@ -24,20 +26,26 @@ export default function Login() {
     validationSchema: signInSchema,
   });
 
-  function onSubmit({ email, password }) {
+  function onSubmit() {
     dispatch(signInRequest(email, password));
   }
+
+  // function onSubmit() {
+  //   dispatch(signInRequest(email, password));
+  // }
 
   return (
     <Container>
       <Content>
         <img src={logo} alt="Logo FastFeet" />
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} data-testid="login-form">
           <label htmlFor="email">Seu e-mail</label>
           <Input
             name="email"
             id="email"
             type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
             placeholder="exemplo@gmail.com"
             ref={register}
           />
@@ -47,12 +55,18 @@ export default function Login() {
             name="password"
             id="password"
             type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
             placeholder="sua senha"
             ref={register}
           />
           {errors.password && <span>{errors.password.message}</span>}
           <button type="submit" disabled={loading}>
-            {loading ? <Loading size={22} /> : 'Entrar no sistema'}
+            {loading ? (
+              <Loading size={22} data-testid="loading" />
+            ) : (
+              'Entrar no sistema'
+            )}
           </button>
         </form>
       </Content>

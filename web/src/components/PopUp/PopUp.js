@@ -7,7 +7,7 @@ export default function PopUp({ children }) {
 
   return (
     <Container>
-      <button onClick={() => setShow(!show)}>
+      <button type="button" onClick={() => setShow(!show)}>
         <FaEllipsisH size={23} color="#ccc" />
       </button>
       {show && <PopContent>{children}</PopContent>}

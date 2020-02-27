@@ -1,6 +1,6 @@
 import { SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAIL } from './actionTypes';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   signed: false,
   token: null,
   loading: false,

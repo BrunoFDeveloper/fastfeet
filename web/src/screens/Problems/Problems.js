@@ -14,7 +14,10 @@ export default function Problems() {
   const [problems, setProblems] = useState([]);
   const [modal, setModal] = useState({ show: false, data: {} });
 
-  function handleDelete(id) {}
+  async function handleDelete(id) {
+    await api.delete(`/problem/${id}/cancel-delivery`);
+    toast.success('Encomenda cancelada com sucesso!');
+  }
 
   function handleModal(item) {
     setModal({ show: !modal.show, data: item });

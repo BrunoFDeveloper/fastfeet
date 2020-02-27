@@ -13,6 +13,6 @@ const IconContent = styled(FaSpinner)`
   }
 `;
 
-export default function Loading({ color, size, animation }) {
+export default function Loading({ color, size, animation, ...rest }) {
   return <IconContent color={color} size={size} animation={animation} />;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { Container } from './styles';
 
 export default function Badge({ text, width, ...rest }) {
@@ -10,3 +10,12 @@ export default function Badge({ text, width, ...rest }) {
     </Container>
   );
 }
+
+Badge.defaultProps = {
+  width: 100,
+};
+
+Badge.propTypes = {
+  text: PropTypes.string.isRequired,
+  width: PropTypes.number,
+};
