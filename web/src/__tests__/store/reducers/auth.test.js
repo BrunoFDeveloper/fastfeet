@@ -3,6 +3,12 @@ import * as actions from '~/store/modules/auth/action';
 import * as actionTypes from '~/store/modules/auth/actionTypes';
 
 describe('Auth reducer', () => {
+  test('Default', () => {
+    const state = reducer(undefined, {});
+
+    expect(state).toStrictEqual(INITIAL_STATE);
+  });
+
   test(`Check user request login ${actionTypes.SIGN_IN_REQUEST}`, () => {
     const state = reducer(
       INITIAL_STATE,
