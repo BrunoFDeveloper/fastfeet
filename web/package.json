@@ -44,7 +44,7 @@
       "!src/index.js",
       "!src/services/api.js"
     ],
-    "coverageDirectory": "__tests_/coverage"
+    "coverageDirectory": "__tests__/coverage"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -28,6 +28,10 @@ export default function Dashboard({ navigation }) {
   const profile = useSelector(state => state.user.profile);
 
   useEffect(() => {
+    if (!profile) {
+      dispatch(signOut());
+      return;
+    }
     async function getOrders() {
       const response = await api.get(`/deliveryman/${profile.id}`);
       setOrders(response.data);
@@ -38,7 +42,7 @@ export default function Dashboard({ navigation }) {
     }
     getOrders();
     getDelivered();
-  }, [profile.id, activeSegment]);
+  }, [profile.id, activeSegment, profile, dispatch]);
 
   function LogOut() {
     Alert.alert(

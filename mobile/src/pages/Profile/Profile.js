@@ -8,8 +8,11 @@ import Button from '~/components/Button/Button';
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
+
   const formattedDate = useMemo(
-    () => format(parseISO(profile.created_at), "dd'/'MM'/'yyyy"),
+    () =>
+      profile.created_at &&
+      format(parseISO(profile.created_at), "dd'/'MM'/'yyyy"),
     [profile.created_at]
   );
 
