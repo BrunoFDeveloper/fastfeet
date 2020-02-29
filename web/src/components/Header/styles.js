@@ -46,7 +46,9 @@ export const Content = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    span {
+    button {
+      background: transparent;
+      border: none;
       color: red;
     }
   }

@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
 
-export default function Badge({ text, width, ...rest }) {
+export default function Badge({ width, ...rest }) {
   return (
-    <Container width={width} {...rest}>
+    <Container width={width} {...rest} data-testid="badge">
       <span />
-      {text && text}
     </Container>
   );
 }
@@ -16,6 +15,5 @@ Badge.defaultProps = {
 };
 
 Badge.propTypes = {
-  text: PropTypes.string.isRequired,
   width: PropTypes.number,
 };

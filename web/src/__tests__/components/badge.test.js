@@ -1,13 +1,20 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 
 import Badge from '~/components/Badge/Badge';
 
-describe('Test <Badge /> Component', () => {
-  test('Should have prop text inside', () => {
-    const text = 'Car';
-    const { getByText } = render(<Badge text={text} />);
+afterEach(cleanup);
 
-    expect(getByText(text)).toBeTruthy();
+describe('Test <Badge /> Component', () => {
+  test('Should be pedding badge', () => {
+    const { getByTestId } = render(<Badge star="true" />);
+
+    expect(getByTestId('badge')).toHaveStyle('background: #f0f0df;');
+  });
+
+  test('Should be delivered badge', () => {
+    const { getByTestId } = render(<Badge end="true" />);
+
+    expect(getByTestId('badge')).toHaveStyle('background: #dff0df;');
   });
 });

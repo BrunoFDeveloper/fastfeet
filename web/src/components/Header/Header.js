@@ -1,9 +1,12 @@
 import React, { memo } from 'react';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { signOut } from '~/store/modules/auth/action';
 import logo from '~/assets/img/logo.png';
 import { Container, Content, Menu, MenuItem } from './styles';
 
 function Header() {
+  const dispatch = useDispatch();
+  const profile = useSelector(state => state.user.profile);
   return (
     <Container>
       <Content>
@@ -19,8 +22,10 @@ function Header() {
           </Menu>
         </div>
         <div>
-          <strong>Admin FastFeet</strong>
-          <span>sair do sistema</span>
+          <strong>{profile?.name}</strong>
+          <button type="button" onClick={() => dispatch(signOut())}>
+            sair do sistema
+          </button>
         </div>
       </Content>
     </Container>
