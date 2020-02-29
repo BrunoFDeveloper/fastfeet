@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -28,10 +29,6 @@ export default function Dashboard({ navigation }) {
   const profile = useSelector(state => state.user.profile);
 
   useEffect(() => {
-    if (!profile) {
-      dispatch(signOut());
-      return;
-    }
     async function getOrders() {
       const response = await api.get(`/deliveryman/${profile.id}`);
       setOrders(response.data);
@@ -118,3 +115,9 @@ export default function Dashboard({ navigation }) {
     </Container>
   );
 }
+
+Dashboard.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};

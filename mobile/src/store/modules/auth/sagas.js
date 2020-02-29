@@ -16,6 +16,11 @@ export function* signIn({ payload: { userId } }) {
       params: { id: userId },
     });
 
+    if (response.data.length === 0) {
+      Alert.alert('Usuário não existe!');
+      return;
+    }
+
     yield put(signInSuccess(userId, response.data[0]));
     Alert.alert('Logado com sucesso!');
   } catch (error) {
