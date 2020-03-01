@@ -7,6 +7,10 @@ import { Container, Content, Menu, MenuItem } from './styles';
 function Header() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
+
+  function leave() {
+    dispatch(signOut());
+  }
   return (
     <Container>
       <Content>
@@ -23,7 +27,7 @@ function Header() {
         </div>
         <div>
           <strong>{profile?.name}</strong>
-          <button type="button" onClick={() => dispatch(signOut())}>
+          <button type="button" onClick={leave}>
             sair do sistema
           </button>
         </div>
