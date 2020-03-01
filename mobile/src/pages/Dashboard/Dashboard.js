@@ -39,7 +39,7 @@ export default function Dashboard({ navigation }) {
     }
     getOrders();
     getDelivered();
-  }, [profile.id, activeSegment, profile, dispatch]);
+  }, [profile.id, activeSegment, profile]);
 
   function LogOut() {
     Alert.alert(
@@ -116,8 +116,12 @@ export default function Dashboard({ navigation }) {
   );
 }
 
+Dashboard.defaultProps = {
+  navigation: {},
+};
+
 Dashboard.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
-  }).isRequired,
+  }),
 };
