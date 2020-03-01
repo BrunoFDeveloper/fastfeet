@@ -12,7 +12,6 @@ export const Avatar = styled.Image`
   border-radius: 70px;
   align-self: center;
   margin-bottom: 40px;
-  border: 1px solid #ccc;
 `;
 
 export const Content = styled.View`

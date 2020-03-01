@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { render, wait, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOut } from '~/store/modules/auth/action';
 

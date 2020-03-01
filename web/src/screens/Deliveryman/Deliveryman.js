@@ -63,7 +63,11 @@ export default function Deliveryman({ history }) {
             <tr>
               <td>#{man.id}</td>
               <td>
-                <img src={man.avatar.url} alt={man.name} />
+                <img
+                  src={man.avatar.url}
+                  alt={man.name}
+                  data-testid="userImage"
+                />
               </td>
               <td>{man.name}</td>
               <td>{man.email}</td>
@@ -94,5 +98,5 @@ export default function Deliveryman({ history }) {
 Deliveryman.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
-  }).isRequired,
+  }),
 };

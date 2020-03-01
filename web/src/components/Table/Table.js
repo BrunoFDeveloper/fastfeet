@@ -22,7 +22,15 @@ export default function Table({ titles, children }) {
   );
 }
 
+Table.defaultProps = {
+  children: '',
+};
+
 Table.propTypes = {
   titles: PropTypes.arrayOf(PropTypes.string).isRequired,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.func,
+    PropTypes.string,
+  ]),
 };
